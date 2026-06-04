@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://chjiya.github.io/tax-calc-jp/sitemap.xml

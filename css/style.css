@@ -1,0 +1,23 @@
+:root{--bg:#fafafa;--card:#fff;--text:#333;--accent:#e53935;--border:#e0e0e0;--input-bg:#f5f5f5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Kaku Gothic Pro","Yu Gothic","Meiryo",sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+.container{max-width:700px;margin:0 auto;padding:20px}
+header{background:var(--card);border-bottom:2px solid var(--accent);padding:20px 0;text-align:center;margin-bottom:30px}
+header h1{font-size:22px;color:var(--accent)}
+header p{font-size:13px;color:#999;margin-top:5px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;margin:20px 0}
+.card h2{font-size:17px;margin-bottom:16px;border-left:3px solid var(--accent);padding-left:10px}
+label{display:block;font-size:14px;font-weight:bold;margin:12px 0 6px;color:#555}
+input,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:6px;font-size:16px;background:var(--input-bg)}
+input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(229,57,53,0.1)}
+.result{background:#fff5f5;border:2px solid var(--accent);border-radius:8px;padding:20px;margin:20px 0;text-align:center}
+.result .price{font-size:32px;font-weight:bold;color:var(--accent);margin:8px 0}
+.result .label{font-size:13px;color:#999}
+.btn-group{display:flex;gap:8px;margin:10px 0}
+.btn{flex:1;padding:10px;border:1px solid var(--border);border-radius:6px;background:var(--card);cursor:pointer;font-size:14px;transition:.2s}
+.btn:hover{background:#f5f5f5}
+.btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+footer{text-align:center;padding:30px;color:#999;font-size:12px}
+.ad-placeholder{background:var(--card);border:1px dashed var(--border);padding:14px;text-align:center;margin:20px 0;color:#ccc;border-radius:8px;font-size:13px}
+.explain{font-size:14px;color:#666;line-height:2}
+@media(max-width:500px){.container{padding:10px}.result .price{font-size:24px}}

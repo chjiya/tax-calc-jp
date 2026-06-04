@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="日本の消費税計算ツール。税込・税抜価格を簡単に計算。10%（標準税率）と8%（軽減税率）に対応。無料で使えるオンライン計算機。">
+  <title>消費税計算ツール - 税込・税抜計算</title>
+  <link rel="stylesheet" href="/tax-calc-jp/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>💰 消費税計算ツール</h1>
+    <p>税込・税抜をかんたん計算｜10%標準税率・8%軽減税率対応</p>
+  </header>
+
+  <div class="container">
+    <div class="ad-placeholder">[広告]</div>
+
+    <div class="card">
+      <h2>計算する</h2>
+      
+      <label>計算モード</label>
+      <div class="btn-group" id="modeGroup">
+        <button class="btn active" onclick="setMode('excluded')">税抜 → 税込</button>
+        <button class="btn" onclick="setMode('included')">税込 → 税抜</button>
+      </div>
+
+      <label>税率</label>
+      <div class="btn-group" id="rateGroup">
+        <button class="btn active" onclick="setRate(10)">10%（標準）</button>
+        <button class="btn" onclick="setRate(8)">8%（軽減）</button>
+      </div>
+
+      <label for="amount">金額（円）</label>
+      <input type="number" id="amount" placeholder="例：10000" oninput="calculate()" onfocus="this.select()">
+
+      <div class="result" id="result" style="display:none">
+        <div class="label" id="resultLabel"></div>
+        <div class="price" id="resultPrice"></div>
+        <div class="label" id="resultTax"></div>
+      </div>
+    </div>
+
+    <div class="ad-placeholder">[広告]</div>
+
+    <div class="card">
+      <h2>日本の消費税について</h2>
+      <div class="explain">
+        <p><strong>標準税率：10%</strong> — ほとんどの商品・サービスに適用</p>
+        <p><strong>軽減税率：8%</strong> — 飲食料品（酒類を除く）と新聞に適用</p>
+        <p>消費税は2019年10月に8%から10%に引き上げられました。軽減税率制度により、食料品などは8%のまま据え置かれています。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>よくある質問</h2>
+      <div class="explain">
+        <p><strong>Q: 税込価格から税抜価格を求めるには？</strong><br>
+        A: 税込価格 ÷ (1 + 税率) で計算できます。例：11,000円（税込10%）÷ 1.1 = 10,000円（税抜）</p>
+        <p><strong>Q: 端数処理はどうなりますか？</strong><br>
+        A: このツールでは小数点以下を四捨五入しています。実際の取引では各事業者の定めによります。</p>
+        <p><strong>Q: インボイス制度との関係は？</strong><br>
+        A: 2023年10月開始のインボイス制度では、適格請求書発行事業者として登録する必要があります。本ツールは簡易計算用です。</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>消費税計算ツール &copy; 2026 · 無料オンライン計算機 · 参考値としてご利用ください</p>
+  </footer>
+
+  <script>
+    let currentMode = 'excluded';
+    let currentRate = 10;
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll('#modeGroup .btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      calculate();
+    }
+
+    function setRate(rate) {
+      currentRate = rate;
+      document.querySelectorAll('#rateGroup .btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      calculate();
+    }
+
+    function calculate() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const result = document.getElementById('result');
+      if (!amount || amount <= 0) { result.style.display = 'none'; return; }
+      result.style.display = 'block';
+
+      const rate = currentRate / 100;
+      if (currentMode === 'excluded') {
+        const taxIncluded = Math.round(amount * (1 + rate));
+        const tax = taxIncluded - amount;
+        document.getElementById('resultLabel').textContent = '税込価格';
+        document.getElementById('resultPrice').textContent = '¥' + taxIncluded.toLocaleString();
+        document.getElementById('resultTax').textContent = '（内消費税 ¥' + tax.toLocaleString() + '）';
+      } else {
+        const taxExcluded = Math.round(amount / (1 + rate));
+        const tax = amount - taxExcluded;
+        document.getElementById('resultLabel').textContent = '税抜価格';
+        document.getElementById('resultPrice').textContent = '¥' + taxExcluded.toLocaleString();
+        document.getElementById('resultTax').textContent = '（消費税 ¥' + tax.toLocaleString() + '）';
+      }
+    }
+  </script>
+</body></html>
